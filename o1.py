@@ -4,7 +4,47 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ppp import find_all_sums
+print(math.floor(4.5))
+print(math.ceil(4.5))
+list1 = [1, 2]
+list1.pop()
+print(list1)
+def generate_arrays(max_length, max_value):
+  """Generates arrays recursively.
 
+  Args:
+    max_length: Maximum length of an array.
+    max_value: Maximum value for elements in an array.
+
+  Returns:
+    A list of arrays.
+  """
+
+  if max_length == 0:
+    return [[]]
+
+  result = []
+  for i in range(1,max_value + 1):
+    for subarray in generate_arrays(max_length - 1, max_value):
+      result.append([i] + subarray)
+
+  return result
+
+# Example usage:
+max_length = 5
+max_value = 3
+arrays = generate_arrays(max_length, max_value)
+print(arrays)
+
+
+
+list1 = [1, 2]
+list2 = [3]
+# list1.remove()
+print(list1)
+result = [x + y for x, y in zip(list1, list2)]
+print(result)  # Output: [4, 6]
+print([1,2].append([3,4]))
 #build binom vectors
 matrix_b=[]
 for i in range(10):
