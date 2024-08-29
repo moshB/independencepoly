@@ -290,37 +290,142 @@ def main():
     print("DONE!")
 
 
-def main5():
+def main6():
     conn = sqlite3.connect('compactDB20.db')  # פתיחת חיבור לדטא-בייס. לשים לב שהדטא בייס נמצא באותה תיקיה
     with conn:  # שימוש ב DB שאוטומטית בסופו סוגר את החיבור
         cur = conn.cursor()  # יצירת מצביע ל DB
-        cur.execute("SELECT * FROM trees WHERE Vertices = 12")  # בחירת כל הדטא שיש ל10 קודקודים
+        cur.execute("SELECT * FROM trees WHERE Vertices = 19")  # בחירת כל הדטא שיש ל10 קודקודים
         rows = cur.fetchall()  # להכניס את כל הרשומות מהDB לתוך rows
-
+        #
+        # leni = len(rows)
+        # b=0
+        # t=0
+        sta = {}
+        # print(rows[0][0])
+        # print(type(rows[0][0]))
         for row in rows:  # הדפסת כל הרשומות שנקראו מה DB
             g = convert_text_to_dict(row[0])
 
-            diameter = graph_diameter(g)
-            if diameter ==5:
-                ip = get_independence_polynomial(g)
-                l = len(ip)-1
-                fl = math.floor(l/2)
-                ce = math.ceil((2*l-1)/3)
-                if ip[l-fl]>=ip[l-fl-1]:
-                    print('botom')
-                    print(ip)
-                if ip[l-ce]>=ip[l-ce+1]:
-                    print('top')
-                    print(ip)
+            ip = get_independence_polynomial(g)
+            if len(ip) - 1 == 17 and ip.index(max(ip)) == 8:
+                print(ip)
+                print(g)
+            # print(type(g))
+            # print('ip=', ip)
+            # print('g=', g)
+            # print(len(ip)-1)
+            # if len(ip) - 1 in sta:
+            #     if len(ip) - ip.index(max(ip)) - 1 in sta[len(ip) - 1]:
+            #         sta[len(ip) - 1][len(ip) - ip.index(max(ip)) - 1] += 1
+            #     else:
+            #         sta[len(ip) - 1][len(ip) - ip.index(max(ip)) - 1] = 1
+            # else:
+            #     sta[len(ip) - 1] = {len(ip) - ip.index(max(ip)) - 1: 1}
+            # m = ip.pop(ip.index(max(ip)) - 1)
+            # n = max(ip)
+            # if n == m:
+            #     print('intersting')
+            #     print(ip)
+            #     print(g)
+            # print(len(ip)-ip.index(max(ip))-1)
 
-                # print(ip)
-                # print(g)
-                # print(graph_diameter(g))
+            # diameter = graph_diameter(g)
+            # if True:#diameter == 5:
+            #
+            #     ip = get_independence_polynomial(g)
+            #     l = len(ip) - 1
+            #     fl = math.floor(l / 2)
+            #     ce = math.ceil((2 * l - 1) / 3)
+            #     if ip[l - fl] >= ip[l - fl - 1]:
+            #         # print('botom')
+            #         # print(ip)
+            #         b+=1
+            #     if ip[l - ce] >= ip[l - ce + 1]:
+            #         # print('top')
+            #         # print(ip)
+            #         t+=1
+            #
+            #     # print(ip)
+            #     # print(g)
+            #     # print(graph_diameter(g))
+
+    # print("DONE!")
+    # # print(leni)
+    # # print(t)
+    # # print(b)
+    # print(sta)
+    # print(sta.keys())
 
 
-    print("DONE!")
+def main5(i):
+    # i="7"
+    conn = sqlite3.connect('compactDB20.db')  # פתיחת חיבור לדטא-בייס. לשים לב שהדטא בייס נמצא באותה תיקיה
+    with conn:  # שימוש ב DB שאוטומטית בסופו סוגר את החיבור
+        cur = conn.cursor()  # יצירת מצביע ל DB
+        cur.execute("SELECT * FROM trees WHERE Vertices = " + i)  # 7")  # בחירת כל הדטא שיש ל10 קודקודים
+        rows = cur.fetchall()  # להכניס את כל הרשומות מהDB לתוך rows
+        #
+        # leni = len(rows)
+        # b=0
+        # t=0
+        sta = {}
+        # print(rows[0][0])
+        # print(type(rows[0][0]))
+        for row in rows:  # הדפסת כל הרשומות שנקראו מה DB
+            g = convert_text_to_dict(row[0])
+
+            ip = get_independence_polynomial(g)
+            # if len(ip) == 6 and len(ip) - ip.index(max(ip)) == 4:
+            #     print(ip)
+            #     print(g)
+            # print(type(g))
+            # print('ip=',ip)
+            # print(len(ip)-1)
+            if len(ip) - 1 in sta:
+                if len(ip) - ip.index(max(ip)) - 1 in sta[len(ip) - 1]:
+                    sta[len(ip) - 1][len(ip) - ip.index(max(ip)) - 1] += 1
+                else:
+                    sta[len(ip) - 1][len(ip) - ip.index(max(ip)) - 1] = 1
+            else:
+                sta[len(ip) - 1] = {len(ip) - ip.index(max(ip)) - 1: 1}
+            m = ip.pop(ip.index(max(ip)) - 1)
+            n = max(ip)
+            if n == m:
+                print('intersting')
+                print(ip)
+                print(g)
+            # print(len(ip)-ip.index(max(ip))-1)
+
+            # diameter = graph_diameter(g)
+            # if True:#diameter == 5:
+            #
+            #     ip = get_independence_polynomial(g)
+            #     l = len(ip) - 1
+            #     fl = math.floor(l / 2)
+            #     ce = math.ceil((2 * l - 1) / 3)
+            #     if ip[l - fl] >= ip[l - fl - 1]:
+            #         # print('botom')
+            #         # print(ip)
+            #         b+=1
+            #     if ip[l - ce] >= ip[l - ce + 1]:
+            #         # print('top')
+            #         # print(ip)
+            #         t+=1
+            #
+            #     # print(ip)
+            #     # print(g)
+            #     # print(graph_diameter(g))
+
+    print("DONE! with ", i, "vertics")
+    # print(leni)
+    # print(t)
+    # print(b)
+    print(sta)
+    print(sta.keys())
+
 
 from collections import deque
+
 
 def bfs(graph, start):
     """Perform BFS and return the distances from the start node to all other nodes."""
@@ -337,6 +442,7 @@ def bfs(graph, start):
 
     return distances
 
+
 def graph_diameter(graph):
     """Return the diameter of the graph."""
     diameter = 0
@@ -349,14 +455,57 @@ def graph_diameter(graph):
     return diameter
 
 
-
-
-
 def cackg():
-    g={0: [1, 2, 3], 1: [0, 4], 2: [0], 3: [0], 4: [1, 5, 6], 5: [4], 6: [4]}
+    g = {0: [1, 2, 3], 1: [0, 4], 2: [0], 3: [0], 4: [1, 5, 6], 5: [4], 6: [4]}
     ip = get_independence_polynomial(g)
     print(ip)
     print(graph_diameter(g))
 
+
+def new_main():
+    for i in range(19, 21):
+        main5(str(i))
+
+def main6():
+    # i="7"
+    conn = sqlite3.connect('compactDB20.db')  # פתיחת חיבור לדטא-בייס. לשים לב שהדטא בייס נמצא באותה תיקיה
+    with conn:  # שימוש ב DB שאוטומטית בסופו סוגר את החיבור
+        cur = conn.cursor()  # יצירת מצביע ל DB
+        cur.execute("SELECT * FROM trees WHERE Vertices = 19")  # 7")  # בחירת כל הדטא שיש ל10 קודקודים
+        rows = cur.fetchall()  # להכניס את כל הרשומות מהDB לתוך rows
+        mmm=0
+        dima=0
+        ggg1={}
+        ggg2={}
+
+        for row in rows:  # הדפסת כל הרשומות שנקראו מה DB
+            g = convert_text_to_dict(row[0])
+
+
+            ip = get_independence_polynomial(g)
+            if len(ip) ==16 and len(ip) - ip.index(max(ip)) - 1 == 8:
+                # print(ip)
+                if dima< graph_diameter(g):
+                    dima= graph_diameter(g)
+                    ggg2=g
+                # print(graph_diameter(g))
+                # print(g)
+                a=0
+                for i in g.values():
+                    if len(i)>2:
+                        a+=1
+                if a>mmm:
+                    mmm = a
+                    ggg1 = g
+
+                # print('num deg biger then 2 is: ', a)
+        print('degr ggg1')
+        print(ggg1)
+        print(mmm)
+        print('diam ggg2')
+        print(ggg2)
+        print(dima)
+
+
 if __name__ == '__main__':
-    main5()
+    main6()
