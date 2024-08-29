@@ -484,7 +484,6 @@ def main6():
 
             ip = get_independence_polynomial(g)
             if len(ip) ==16 and len(ip) - ip.index(max(ip)) - 1 == 8:
-                # print(ip)
                 if dima< graph_diameter(g):
                     dima= graph_diameter(g)
                     ggg2=g
