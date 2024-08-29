@@ -471,7 +471,7 @@ def main6():
     conn = sqlite3.connect('compactDB20.db')  # פתיחת חיבור לדטא-בייס. לשים לב שהדטא בייס נמצא באותה תיקיה
     with conn:  # שימוש ב DB שאוטומטית בסופו סוגר את החיבור
         cur = conn.cursor()  # יצירת מצביע ל DB
-        cur.execute("SELECT * FROM trees WHERE Vertices = 19")  # 7")  # בחירת כל הדטא שיש ל10 קודקודים
+        cur.execute("SELECT * FROM trees WHERE Vertices = 10")  # 7")  # בחירת כל הדטא שיש ל10 קודקודים
         rows = cur.fetchall()  # להכניס את כל הרשומות מהDB לתוך rows
         mmm=0
         dima=0
@@ -488,8 +488,7 @@ def main6():
                 if dima< graph_diameter(g):
                     dima= graph_diameter(g)
                     ggg2=g
-                # print(graph_diameter(g))
-                # print(g)
+
                 a=0
                 for i in g.values():
                     if len(i)>2:
