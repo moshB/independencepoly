@@ -426,6 +426,40 @@ def main5(i):
 
 from collections import deque
 
+def is_unimodal(polynomial):
+    """
+    Check if a polynomial is unimodal.
+
+    :param polynomial: List of coefficients of the polynomial.
+    :return: True if the polynomial is unimodal.
+    :raises ValueError: If the polynomial is not unimodal.
+    """
+    if not polynomial:
+        raise ValueError("Polynomial is empty.")
+
+    n = len(polynomial)
+    if n == 1:
+        return True
+
+    # Check if the polynomial has increasing and then decreasing sequence
+    peak_found = False
+    for i in range(1, n):
+        if polynomial[i] > polynomial[i - 1]:
+            if peak_found:
+                raise ValueError("Polynomial is not unimodal.")
+        elif polynomial[i] < polynomial[i - 1]:
+            peak_found = True
+
+    return True
+
+# Example usage
+# try:
+#     poly = [1, 3, 7, 8, 7, 3, 1]  # Example polynomial coefficients
+#     result = is_unimodal(poly)
+#     print("The polynomial is unimodal:", result)
+# except ValueError as e:
+#     print("Error:", e)
+
 
 def bfs(graph, start):
     """Perform BFS and return the distances from the start node to all other nodes."""
@@ -504,6 +538,54 @@ def main6():
         print(ggg2)
         print(dima)
 
+def cack_unimodality():
+    # i="7"
+    conn = sqlite3.connect('compactDB20.db')  # פתיחת חיבור לדטא-בייס. לשים לב שהדטא בייס נמצא באותה תיקיה
+    with conn:  # שימוש ב DB שאוטומטית בסופו סוגר את החיבור
+        cur = conn.cursor()  # יצירת מצביע ל DB
+        cur.execute("SELECT * FROM trees WHERE Vertices = 10")  # 7")  # בחירת כל הדטא שיש ל10 קודקודים17
+        rows = cur.fetchall()  # להכניס את כל הרשומות מהDB לתוך rows
+
+        for row in rows:  # הדפסת כל הרשומות שנקראו מה DB;
+            g = convert_text_to_dict(row[0])
+            ip = get_independence_polynomial(g)
+            # print(ip)
+
+            if len(ip) == 10:
+                print(ip)
+                if ip[3]==max(ip):
+                    print(ip)
+                    print(g)
+            # try:
+            #     # poly = [1, 3, 7, 8, 7, 3, 1]  # Example polynomial coefficients
+            #     result = is_unimodal(ip)
+            #     # print("The polynomial is unimodal:", result)
+            # except ValueError as e:
+            #     print("Error:", e)
+        print('finish')
+
+
+
+            # if len(ip) ==16 and len(ip) - ip.index(max(ip)) - 1 == 8:
+            #     if dima< graph_diameter(g):
+            #         dima= graph_diameter(g)
+            #         ggg2=g
+            #
+            #     a=0
+            #     for i in g.values():
+            #         if len(i)>2:
+            #             a+=1
+            #     if a>mmm:
+            #         mmm = a
+            #         ggg1 = g
+            #
+            #     # print('num deg biger then 2 is: ', a)
+        # print('degr ggg1')
+        # print(ggg1)
+        # print(mmm)
+        # print('diam ggg2')
+        # print(ggg2)
+        # print(dima)
 
 if __name__ == '__main__':
-    main6()
+    cack_unimodality()
