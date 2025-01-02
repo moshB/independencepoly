@@ -589,3 +589,91 @@ def cack_unimodality():
 
 if __name__ == '__main__':
     cack_unimodality()
+
+
+def calculate_mode(polynomial_coefficients):
+    """
+    This function calculates the mode of the independence polynomial.
+
+    Parameters:
+    polynomial_coefficients (list): A list of coefficients of the independence polynomial,
+                                    where the index corresponds to the degree of the term.
+
+    Returns:
+    int: The index of the mode (the index of the maximum coefficient).
+    """
+    # Find the maximum coefficient and its index
+    mode_index = polynomial_coefficients.index(max(polynomial_coefficients))
+
+    return mode_index
+
+
+import networkx as nx
+# Recursive function to generate a Fibonacci tree
+def fibonacci_tree(G, node, n, parent=None, pos=None, x=0, y=0, layer=1):
+    if pos is None:
+        pos = {}
+    pos[node] = (x, y)
+    if parent is not None:
+        G.add_edge(parent, node)
+
+    if n == 1:
+        return node, pos
+    elif n == 2:
+        G.add_edge(node, node + 1)
+        pos[node + 1] = (x, y - layer)
+        return node + 1, pos
+    else:
+        # Create the left subtree T(n-1)
+        left_child, pos = fibonacci_tree(G, node + 1, n - 1, node, pos, x - layer, y - layer, layer / 2)
+        # Create the right subtree T(n-2)
+        right_child, pos = fibonacci_tree(G, left_child + 1, n - 2, node, pos, x + layer, y - layer, layer / 2)
+        return right_child, pos
+
+# Function to convert a graph to an adjacency list
+def graph_to_adjacency_list(G):
+    adj_list = {node: list(neighbors) for node, neighbors in G.adjacency()}
+    return adj_list
+
+# Initialize the graph and root node
+G = nx.Graph()
+root = 0
+depth = 5
+# Adjust the depth of the Fibonacci tree
+d1=[2, 1]
+d2=[3, 4, 1]
+d3=[2, 11, 15, 7, 1]
+d4=[18, 81, 142, 123, 55, 12, 1]
+d1.reverse()
+d2.reverse()
+d3.reverse()
+d4.reverse()
+print(d1)
+print(d2)
+print(d3)
+print(d4)
+# Generate the Fibonacci tree
+_, pos = fibonacci_tree(G, root, depth)
+r6_7=[216, 4932, 44634, 223471, 714618, 1577767, 2519784, 2996484, 2700603, 1862269, 985332, 398605, 121986, 27687, 4506, 496, 33, 1]
+ssss=0
+for i in range(18):
+    ssss+=(-1)**i*r6_7[i]
+print('ssss')
+print(ssss)
+# Get the adjacency list
+adj_list = graph_to_adjacency_list(G)
+
+ggg={}
+for node, neighbors in adj_list.items():
+    ggg[node]=neighbors
+print(ggg)
+
+
+
+ipp=get_independence_polynomial(ggg)
+print(ipp)
+l=len(ipp)-1
+m=l-calculate_mode(ipp)
+mt=math.floor(l/((1+math.sqrt(5))/2))
+
+print('alfa is:',l,'mod:',m,'gusse mod:',mt)
